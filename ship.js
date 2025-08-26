@@ -3,7 +3,7 @@ function createShip(length) {
 		console.warn('Error - ship length must be positive');
 	}
 
-	let hits = 0;
+	let hits = 2;
 
 	function hit(shipLocations, attackLocation) {
 		for (let i = 0; i < shipLocations.length; i++) {
@@ -15,7 +15,13 @@ function createShip(length) {
 		return false;
 	}
 
-	function isSunk() {}
+	function isSunk(){
+        if(length === hits){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
 	return { length, isSunk, hit };
 }
