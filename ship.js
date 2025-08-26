@@ -8,7 +8,7 @@ function createShip(length) {
 	function hit(shipLocations, attackLocation) {
 		for (let i = 0; i < shipLocations.length; i++) {
 			if (shipLocations[i][0] === attackLocation[0] && shipLocations[i][1] === attackLocation[1]) {
-				hit++;
+				hits++;
 				return true;
 			}
 		}
