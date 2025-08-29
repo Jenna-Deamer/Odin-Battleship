@@ -3,8 +3,12 @@ let ships = [];
 let hitSquares = []
 let missedSquares = []
 
-    function placeShip(startPos,endPos, ship){
+    function placeShip(startPos,endPos, direction, ship){
+        if(direction === 'horizontal'){
+            
+        }else if(direction === 'vertical'){
 
+        }
     }
 
     return{placeShip}
