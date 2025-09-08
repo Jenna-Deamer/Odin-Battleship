@@ -44,7 +44,11 @@ function gameboard() {
 		ships.push({ ship, positions });
 	}
 
-	return { placeShip, ships };
+    function receiveAttack (attackPos){
+
+    }
+
+	return { placeShip,receiveAttack, ships, hitSquares, missedSquares };
 }
 
 module.exports = gameboard;
