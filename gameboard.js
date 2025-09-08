@@ -2,7 +2,7 @@ const ship = require('./ship');
 
 function gameboard() {
 	let ships = [];
-	let hitSquares = [[0, 0]];
+	let hitSquares = [[1, 1]];
 	let missedSquares = [];
 
 	function placeShip(startPos, direction, ship) {

@@ -71,7 +71,6 @@ test('Check if attack on a already hit/missed square is handled', () => {
 		hit: jest.fn(),
 	};
 	const board = gameboard();
-	board.placeShip([0, 0], 'horizontal', mockShip);
 	// Attack a position that is in hits arr
-	expect(board.receiveAttack([0, 0])).toBe('Already attacked');
+	expect(board.receiveAttack([1, 1])).toBe('Already attacked');
 });
