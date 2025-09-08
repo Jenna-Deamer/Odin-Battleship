@@ -64,3 +64,14 @@ test('Check if miss was added to MissedSquares arr', () => {
 	board.receiveAttack([5, 5]);
 	expect(board.missedSquares).toContainEqual([5, 5]);
 });
+
+test('Check if attack on a already hit/missed square is handled', () => {
+	const mockShip = {
+		length: 3,
+		hit: jest.fn(),
+	};
+	const board = gameboard();
+	board.placeShip([0, 0], 'horizontal', mockShip);
+	// Attack a position that is in hits arr
+	expect(board.receiveAttack([0, 0])).toBe('Already attacked');
+});
