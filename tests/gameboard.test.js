@@ -13,24 +13,53 @@ test('Places a ship at provided location if it is in bounds', () => {
 	]);
 });
 
-// test('Ensure placement of ship is within gameboard bounds', () => {
-// 	const board = gameboard();
-// 	const shipOne = ship(3);
-
-// 	expect(board.placeShip([0, 8], 'horizontal', shipOne)).toBe('Out of bounds');
-// 	expect(board.placeShip([8, 0], 'vertical', shipOne)).toBe('Out of bounds');
-// });
-
-test('Mark hits and misses correctly', () => {
-    const shipOne = ship(3);
+test('Ensure placement of ship is within gameboard bounds', () => {
 	const board = gameboard();
-	board.placeShip([0, 0], 'horizontal', shipOne);
+	const mockShip = {
+		length: 3,
+		hit: jest.fn(),
+	};
+	const mockShipTwo = {
+		length: 2,
+		hit: jest.fn(),
+	};
+	expect(board.placeShip([0, 8], 'horizontal', mockShip)).toBe('Out of bounds');
+	expect(board.placeShip([8, 0], 'vertical', mockShipTwo)).not.toBe(
+		'Out of bounds'
+	);
+});
+
+test('Check if hit was added to hitSquares arr', () => {
+	const mockShip = {
+		length: 3,
+		hit: jest.fn(),
+	};
+	const board = gameboard();
+	board.placeShip([0, 0], 'horizontal', mockShip);
 	board.receiveAttack([0, 0]);
 
 	// Attack a position that has a ship
 	board.receiveAttack([0, 0]);
 	expect(board.hitSquares).toContainEqual([0, 0]);
+});
+test('Check if ship hit count was increased after a hit', () => {
+	const mockShip = {
+		length: 3,
+		hit: jest.fn(),
+	};
+	const board = gameboard();
+	board.placeShip([0, 0], 'horizontal', mockShip);
+	board.receiveAttack([0, 0]);
 
+	expect(mockShip.hit).toHaveBeenCalled();
+});
+test('Check if miss was added to MissedSquares arr', () => {
+	const mockShip = {
+		length: 3,
+		hit: jest.fn(),
+	};
+	const board = gameboard();
+	board.placeShip([0, 0], 'horizontal', mockShip);
 	// Attack a position with no ship
 	board.receiveAttack([5, 5]);
 	expect(board.missedSquares).toContainEqual([5, 5]);

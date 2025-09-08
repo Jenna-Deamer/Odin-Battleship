@@ -1,3 +1,5 @@
+const ship = require('./ship');
+
 function gameboard() {
 	let ships = [];
 	let hitSquares = [];
@@ -42,13 +44,30 @@ function gameboard() {
 
 		// push ship with occupied tiles
 		ships.push({ ship, positions });
+        return 'Ship Placed';
 	}
 
-    function receiveAttack (attackPos){
+	function receiveAttack(attackPos) {
+		// loop through all ships
+		for (let i = 0; i < ships.length; i++) {
+			const shipObj = ships[i];
+			// loop through pos arr for each ship
+			for (let j = 0; j < shipObj.positions.length; j++) {
+				const currentPos = shipObj.positions[j];
 
-    }
+				if (currentPos[0] === attackPos[0] && currentPos[1] === attackPos[1]) {
+					console.log('Hit ' + currentPos);
+					hitSquares.push(currentPos);
+					shipObj.ship.hit();
+					return 'Hit';
+				}
+			}
+		}
+		missedSquares.push(attackPos);
+		return 'Miss';
+	}
 
-	return { placeShip,receiveAttack, ships, hitSquares, missedSquares };
+	return { placeShip, receiveAttack, ships, hitSquares, missedSquares };
 }
 
 module.exports = gameboard;
