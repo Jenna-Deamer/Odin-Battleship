@@ -4,16 +4,39 @@ function gameboard() {
 	let missedSquares = [];
 
 	function placeShip(startPos, direction, ship) {
+		if (
+			startPos[0] < 0 ||
+			startPos[0] > 9 ||
+			startPos[1] < 0 ||
+			startPos[1] > 9
+		) {
+			console.warn('Start position is out of bounds');
+			return 'Out of bounds';
+		}
+
 		let positions = [];
+
 		if (direction === 'horizontal') {
-			// increment col
 			for (let i = 0; i < ship.length; i++) {
-				positions.push([startPos[0], startPos[1] + i]);
+				let row = startPos[0];
+				let col = startPos[1] + i;
+
+				if (col < 0 || col >= 10) {
+					return 'Out of bounds';
+				}
+
+				positions.push([row, col]);
 			}
-			// increment row
 		} else if (direction === 'vertical') {
 			for (let i = 0; i < ship.length; i++) {
-				positions.push([startPos[0] + i, startPos[1]]);
+				let row = startPos[0] + i;
+				let col = startPos[1];
+
+				if (row < 0 || row >= 10) {
+					return 'Out of bounds';
+				}
+
+				positions.push([row, col]);
 			}
 		}
 
