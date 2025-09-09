@@ -66,11 +66,21 @@ test('Check if miss was added to MissedSquares arr', () => {
 });
 
 test('Check if attack on a already hit/missed square is handled', () => {
-	const mockShip = {
-		length: 3,
-		hit: jest.fn(),
-	};
 	const board = gameboard();
+    board.hitSquares.push([1, 1]);
 	// Attack a position that is in hits arr
 	expect(board.receiveAttack([1, 1])).toBe('Already attacked');
+});
+
+test('Check if all ships on the board have been sunk', () => {
+	const board = gameboard();
+	const realShip = ship(3);
+	board.placeShip([0, 0], 'horizontal', realShip);
+
+	// Attack all positions
+	board.receiveAttack([0, 0]);
+	board.receiveAttack([0, 1]);
+	board.receiveAttack([0, 2]);
+
+	expect(board.checkSunkStatus()).toBe('All ships are down');
 });

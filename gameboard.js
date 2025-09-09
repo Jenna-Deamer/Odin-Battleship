@@ -2,7 +2,7 @@ const ship = require('./ship');
 
 function gameboard() {
 	let ships = [];
-	let hitSquares = [[1, 1]];
+	let hitSquares = [];
 	let missedSquares = [];
 
 	function placeShip(startPos, direction, ship) {
@@ -55,13 +55,14 @@ function gameboard() {
 			missedSquares.some(
 				(pos) => pos[0] === attackPos[0] && pos[1] === attackPos[1]
 			);
-            
-            if(alreadyAttacked){
-                return 'Already attacked'
-            }
+
+		if (alreadyAttacked) {
+			return 'Already attacked';
+		}
 
 		// for each ship loop through pos arr & check for attackPos
-		ships.forEach((shipObj) => {
+		for (let i = 0; i < ships.length; i++) {
+			const shipObj = ships[i];
 			for (let j = 0; j < shipObj.positions.length; j++) {
 				const currentPos = shipObj.positions[j];
 
@@ -71,13 +72,30 @@ function gameboard() {
 					return 'Hit';
 				}
 			}
-		});
+		}
 
 		missedSquares.push(attackPos);
 		return 'Miss';
 	}
 
-	return { placeShip, receiveAttack, ships, hitSquares, missedSquares };
+	function checkSunkStatus() {
+		console.log(ships);
+		const allShipsAreSunk = ships.every((shipObj) => shipObj.ship.isSunk());
+		if (allShipsAreSunk) {
+			return 'All ships are down';
+		} else {
+			return 'Some ships remain';
+		}
+	}
+
+	return {
+		placeShip,
+		receiveAttack,
+		checkSunkStatus,
+		ships,
+		hitSquares,
+		missedSquares,
+	};
 }
 
 module.exports = gameboard;
