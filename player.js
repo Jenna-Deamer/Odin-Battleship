@@ -4,6 +4,7 @@ function player(type) {
 	board = Gameboard();
 
     return{board}
+
 }
 
 module.exports = player;
